@@ -1,5 +1,5 @@
-//Lab 9-2.cpp - displays two monthly car payments
-//Created/revised by <your name> on <current date>
+//Hw 10-13.cpp - displays two monthly car payments
+//Created/revised by Samuel Hollenbeck on 11/23/2024
 
 #include <iostream>
 #include <cmath>
@@ -7,7 +7,7 @@
 using namespace std;
 
 //function prototype
-double getPayment(int, double, int);
+void getPayment(int, double, int, double&);
 
 int main()
 {
@@ -32,29 +32,29 @@ int main()
     cin >> term;
 
     //call function to calculate payments
-    creditPayment = getPayment(carPrice - rebate,
-        creditRate / 12, term * 12);
-    dealerPayment = getPayment(carPrice, 
-        dealerRate / 12, term * 12);    //assign values to calculate payments
-    
+    getPayment(carPrice - rebate, creditRate / 12, term * 12, creditPayment);
+    getPayment(carPrice, dealerRate / 12, term * 12, dealerPayment);
+
     //display payments
     cout << fixed << setprecision(2) << endl; 
     cout << "Credit union payment: $" 
         << creditPayment << endl;
     cout << "Dealer payment: $"
         << dealerPayment << endl;
-    
+
     return 0;
 }//end of main function    
 
     //*****function definitions*****
-double getPayment(int prin,
-                  double monthRate, 
-                  int months)
+void getPayment(int prin, double monthRate, int months, double& monthPay)
 {
     //calculates and returns a monthly payment
-    double monthPay = 0.0;
-    monthPay = prin * monthRate / 
-        (1 - pow(monthRate + 1, -months));
-    return monthPay;
+    if (monthRate == 0)
+    {
+    monthPay = -1;
+    }
+    else
+    {
+    monthPay = prin * monthRate / (1 - pow(monthRate + 1, -months));
+    }
 } //end of getPayment function//*****function definition*****
